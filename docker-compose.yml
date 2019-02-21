@@ -3,6 +3,7 @@ version: "3"
 services:
   pdns-db:
     image: mysql/mysql-server:5.7
+    restart: always
     deploy:
       resources:
         limits:
@@ -30,6 +31,7 @@ services:
       dockerfile: Dockerfile
       context: pdns/
     image: connectitnet/pdns
+    restart: always
     ports:
       - "5353:53/udp"
     networks:
@@ -61,6 +63,7 @@ services:
       dockerfile: Dockerfile
       context: pdns-recursor/
     image: connectitnet/pdns-recursor
+    restart: always
     hostname: recursor
     ports:
       - "53:53/udp"
@@ -86,6 +89,7 @@ services:
   
   pdnsadmin-db:
     image: mysql/mysql-server:5.7
+    restart: always
     deploy:
       resources:
         limits:
@@ -113,6 +117,7 @@ services:
       dockerfile: Dockerfile
       context: pdns-admin/
     image: connectitnet/powerdns-admin:latest
+    restart: always
     deploy:
       resources:
         limits:
@@ -146,6 +151,7 @@ services:
   nginx:
     command: nginx -c /etc/nginx/nginx.conf
     image: nginx:alpine
+    restart: always
     depends_on:
       - powerdns-admin
     ports:
@@ -161,7 +167,6 @@ networks:
       config:
         - subnet: ${SUBNET}
     
-
 volumes:
   pdns-mysql-data:
   pdna-mysql-data:
