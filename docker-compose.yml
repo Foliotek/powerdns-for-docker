@@ -33,7 +33,7 @@ services:
     image: connectitnet/pdns
     restart: always
     ports:
-      - "5353:53/udp"
+      - "5353:5353/udp"
     networks:
       default:
         ipv4_address: ${PDNS_IP}
@@ -55,6 +55,7 @@ services:
       - PDNS_soa_minimum_ttl=36000
       - PDNS_default_soa_name=ns1.example.com
       - PDNS_default_soa_mail=hostmaster.example.com
+      - PDNS_local_port=5353
     depends_on:
       - pdns-db
 
@@ -70,7 +71,7 @@ services:
     networks:
       - default
     environment:
-      - PDNS_forward_zones=foliotek.com=${PDNS_IP}
+      - PDNS_forward_zones=foliotek.com=${PDNS_IP}:5353
     # environment:
     #   - BACKEND=mysql
     #   - PDNS_master=yes
