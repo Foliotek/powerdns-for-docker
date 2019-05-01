@@ -71,7 +71,7 @@ services:
     networks:
       - default
     environment:
-      - PDNS_forward_zones=foliotek.com=${PDNS_IP}:5353
+      - PDNS_forward_zones=foliotek.com=${PDNS_IP}:5353;8.8.8.8, foliotek.us=${PDNS_IP}:5353;8.8.8.8, foliotek.me=${PDNS_IP}:5353;8.8.8.8
     # environment:
     #   - BACKEND=mysql
     #   - PDNS_master=yes
@@ -157,6 +157,7 @@ services:
       - powerdns-admin
     ports:
       - 8000:8000
+      - 8001:8001
     volumes:
       - staticfiles:/opt/powerdns-admin/app/static/:ro
       - uploads:/opt/powerdns-admin/upload/:ro
